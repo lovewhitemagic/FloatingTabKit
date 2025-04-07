@@ -36,7 +36,7 @@ public struct FloatingTabScaffold: View {
 
             VStack {
                 Spacer()
-                HStack(spacing: 0) {
+                HStack(spacing: 20) {
                     ForEach(tabs) { tab in
                         FloatingTabButton(
                             icon: tab.icon,
@@ -44,7 +44,7 @@ public struct FloatingTabScaffold: View {
                         ) {
                             selectedTab = tab.id
                         }
-                        .frame(maxWidth: .infinity)
+                      //  .frame(maxWidth: .infinity)
                     }
                 }
                 .padding(.vertical, 10)
