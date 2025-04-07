@@ -36,7 +36,7 @@ public struct FloatingTabScaffold: View {
 
             VStack {
                 Spacer()
-                HStack {
+                HStack(spacing: 0) {
                     ForEach(tabs) { tab in
                         FloatingTabButton(
                             icon: tab.icon,
@@ -44,9 +44,11 @@ public struct FloatingTabScaffold: View {
                         ) {
                             selectedTab = tab.id
                         }
+                        .frame(maxWidth: .infinity)
                     }
                 }
-                .padding(.vertical, 8)
+                .padding(.vertical, 10)
+                .padding(.horizontal, 16) // 左右固定边距
                 .background(background)
                 .cornerRadius(cornerRadius)
                 .shadow(
@@ -55,9 +57,8 @@ public struct FloatingTabScaffold: View {
                     x: shadow.x,
                     y: shadow.y
                 )
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 16)
             }
+
         }
     }
 }
