@@ -38,14 +38,12 @@ public struct FloatingTabScaffold: View {
                 Spacer()
                 HStack {
                     ForEach(tabs) { tab in
-                        Spacer()
                         FloatingTabButton(
                             icon: tab.icon,
                             isSelected: selectedTab == tab.id
                         ) {
                             selectedTab = tab.id
                         }
-                        Spacer()
                     }
                 }
                 .padding(.vertical, 8)
