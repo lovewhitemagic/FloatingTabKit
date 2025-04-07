@@ -47,8 +47,8 @@ public struct FloatingTabScaffold: View {
                       //  .frame(maxWidth: .infinity)
                     }
                 }
-                .padding(.vertical, 10)
-                .padding(.horizontal, 16) // 左右固定边距
+                .padding(.vertical, 12)
+                .padding(.horizontal, 20) // 左右固定边距
                 .background(background)
                 .cornerRadius(cornerRadius)
                 .shadow(
