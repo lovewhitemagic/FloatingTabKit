@@ -1,6 +1,7 @@
 # FloatingTabKit
 一个 SwiftUI 浮动标签栏组件，支持自定义背景、圆角、阴影，适配浅色/深色模式。可替代原生 `TabView`，让你的底部导航更灵动、更美观 ✨
 
+![preview](assets/preview.png)
 
 ## ✨ 功能亮点
 
@@ -21,28 +22,82 @@
 ## 🧪 使用示例
 
 ```swift
-import FloatingTabKit
 import SwiftUI
+import FloatingTabKit
 
-struct FloatingTabDemoView: View {
+struct FloatingTabExample: View {
     var body: some View {
         FloatingTabScaffold(
             tabs: [
                 .init(id: 0, icon: "house", content: AnyView(HomeView())),
                 .init(id: 1, icon: "star", content: AnyView(FavoriteView())),
-                .init(id: 2, icon: "gearshape", content: AnyView(SettingsView()))
+                .init(id: 2, icon: "gearshape", content: AnyView(SettingsView())),
+               .init(id: 3, icon: "person.crop.circle", content: AnyView(ProfileView()))
             ],
             initialTab: 0,
-            background: AnyShapeStyle(.ultraThinMaterial),
+            background: AnyShapeStyle(.white),
             cornerRadius: 28,
             shadow: ShadowStyle(
                 color: .black.opacity(0.1),
                 radius: 10,
                 x: 0,
-                y: 4
+                y: 5
             )
         )
     }
+}
+
+struct HomeView: View {
+    var body: some View {
+        NavigationStack {
+            List(1...10, id: \.self) { i in
+                Text("🏠 Home Item \(i)")
+            }
+            .navigationTitle("首页")
+        }
+    }
+}
+
+struct FavoriteView: View {
+    var body: some View {
+        NavigationStack {
+            List(1...10, id: \.self) { i in
+                Text("⭐️ Favorite Item \(i)")
+            }
+            .navigationTitle("收藏")
+        }
+    }
+}
+
+struct SettingsView: View {
+    var body: some View {
+        NavigationStack {
+            List(1...10, id: \.self) { i in
+                Text("⚙️ Setting Item \(i)")
+            }
+            .navigationTitle("设置")
+        }
+    }
+}
+
+struct ProfileView: View {
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Image(systemName: "person.crop.circle")
+                    .font(.system(size: 80))
+                    .padding()
+
+                Text("这是个人中心")
+                    .font(.title)
+            }
+            .navigationTitle("我的")
+        }
+    }
+}
+
+#Preview {
+    FloatingTabExample()
 }
 ```
 
