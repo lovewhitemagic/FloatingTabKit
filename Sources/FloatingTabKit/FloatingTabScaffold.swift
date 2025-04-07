@@ -1,5 +1,6 @@
 import SwiftUI
 
+@available(iOS 16.0, *)
 public struct FloatingTabScaffold: View {
     private let tabs: [FloatingTabItem]
     private let background: AnyShapeStyle

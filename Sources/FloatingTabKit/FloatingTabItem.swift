@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct FloatingTabItem: Identifiable, Equatable {
+public struct FloatingTabItem: Identifiable {
     public let id: Int
     public let icon: String
     public let content: AnyView
