@@ -1,8 +1,15 @@
 import SwiftUI
 
-@available(iOS 16.0, *)
+@resultBuilder
+public struct FloatingTabBuilder {
+    public static func buildBlock(_ components: FloatingTab...) -> [FloatingTab] {
+        components
+    }
+}
+
 public struct FloatingTabScaffold: View {
-    private let tabs: [FloatingTabItem]
+    private let tabs: [FloatingTab]
+    private let initialTab: Int
     private let background: AnyShapeStyle
     private let cornerRadius: CGFloat
     private let shadow: ShadowStyle
@@ -10,41 +17,33 @@ public struct FloatingTabScaffold: View {
     @State private var selectedTab: Int
 
     public init(
-        tabs: [FloatingTabItem],
         initialTab: Int = 0,
-        background: AnyShapeStyle = AnyShapeStyle(.ultraThinMaterial),
+        background: AnyShapeStyle = AnyShapeStyle(Color.white),
         cornerRadius: CGFloat = 22,
-        shadow: ShadowStyle = .default
+        shadow: ShadowStyle = .default,
+        @FloatingTabBuilder content: () -> [FloatingTab]
     ) {
-        self.tabs = tabs
-        self._selectedTab = State(initialValue: initialTab)
+        self.tabs = content()
+        self.initialTab = initialTab
         self.background = background
         self.cornerRadius = cornerRadius
         self.shadow = shadow
+        self._selectedTab = State(initialValue: initialTab)
     }
 
     public var body: some View {
         ZStack {
-            TabView(selection: $selectedTab) {
-                ForEach(tabs) { tab in
-                    tab.content
-                        .tag(tab.id)
-                        .toolbar(.hidden, for: .tabBar)
-                }
-            }
-            .toolbar(.hidden, for: .tabBar)
+            tabs[selectedTab].content
 
             VStack {
                 Spacer()
                 HStack(spacing: 20) {
-                    ForEach(tabs) { tab in
+                    ForEach(Array(tabs.enumerated()), id: \.offset) { index, tab in
                         FloatingTabButton(
                             icon: tab.icon,
-                            isSelected: selectedTab == tab.id
-                        ) {
-                            selectedTab = tab.id
-                        }
-                      //  .frame(maxWidth: .infinity)
+                            isSelected: selectedTab == index,
+                            action: { selectedTab = index }
+                        )
                     }
                 }
                 .padding(.vertical, 12)
@@ -58,7 +57,7 @@ public struct FloatingTabScaffold: View {
                     y: shadow.y
                 )
             }
-
         }
     }
 }
+

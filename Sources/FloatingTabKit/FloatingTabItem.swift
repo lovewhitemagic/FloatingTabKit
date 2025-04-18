@@ -1,13 +1,15 @@
 import SwiftUI
 
-public struct FloatingTabItem: Identifiable {
-    public let id: Int
+public struct FloatingTab: Identifiable {
+    public let id: String
     public let icon: String
     public let content: AnyView
 
-    public init(id: Int, icon: String, content: AnyView) {
-        self.id = id
+    public init(_ icon: String, @ViewBuilder content: () -> some View) {
         self.icon = icon
-        self.content = content
+        self.id = icon
+        self.content = AnyView(content()) // 👈 自动封装为 AnyView
     }
 }
+
+

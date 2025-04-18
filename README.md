@@ -22,82 +22,37 @@
 ## 🧪 使用示例
 
 ```swift
-import SwiftUI
 import FloatingTabKit
+//默认
+struct FloatingTabExample: View {
+    var body: some View {
+        FloatingTabScaffold {
+            FloatingTab("house") { HomeView() }
+            FloatingTab("star") { FavoriteView() }
+            FloatingTab("gearshape") { SettingsView() }
+        }
+    }
+}
 
+//外部可自定义参数写法
 struct FloatingTabExample: View {
     var body: some View {
         FloatingTabScaffold(
-            tabs: [
-                .init(id: 0, icon: "house", content: AnyView(HomeView())),
-                .init(id: 1, icon: "star", content: AnyView(FavoriteView())),
-                .init(id: 2, icon: "gearshape", content: AnyView(SettingsView())),
-               .init(id: 3, icon: "person.crop.circle", content: AnyView(ProfileView()))
-            ],
-            initialTab: 0,
-            background: AnyShapeStyle(.white),
-            cornerRadius: 28,
+            background: AnyShapeStyle(Color.white),
+            cornerRadius: 32,
             shadow: ShadowStyle(
-                color: .black.opacity(0.1),
-                radius: 10,
+                color: .black.opacity(0.2),
+                radius: 12,
                 x: 0,
-                y: 5
+                y: 4
             )
-        )
-    }
-}
-
-struct HomeView: View {
-    var body: some View {
-        NavigationStack {
-            List(1...10, id: \.self) { i in
-                Text("🏠 Home Item \(i)")
-            }
-            .navigationTitle("首页")
+        ) {
+            FloatingTab("house") { HomeView() }
+            FloatingTab("star") { FavoriteView() }
+            FloatingTab("gearshape") { SettingsView() }
         }
+
     }
-}
-
-struct FavoriteView: View {
-    var body: some View {
-        NavigationStack {
-            List(1...10, id: \.self) { i in
-                Text("⭐️ Favorite Item \(i)")
-            }
-            .navigationTitle("收藏")
-        }
-    }
-}
-
-struct SettingsView: View {
-    var body: some View {
-        NavigationStack {
-            List(1...10, id: \.self) { i in
-                Text("⚙️ Setting Item \(i)")
-            }
-            .navigationTitle("设置")
-        }
-    }
-}
-
-struct ProfileView: View {
-    var body: some View {
-        NavigationStack {
-            VStack {
-                Image(systemName: "person.crop.circle")
-                    .font(.system(size: 80))
-                    .padding()
-
-                Text("这是个人中心")
-                    .font(.title)
-            }
-            .navigationTitle("我的")
-        }
-    }
-}
-
-#Preview {
-    FloatingTabExample()
 }
 ```
 
@@ -105,12 +60,6 @@ struct ProfileView: View {
 
 | 参数名        | 类型              | 描述                                             |
 |---------------|-------------------|--------------------------------------------------|
-| `tabs`        | `[FloatingTabItem]` | 每个 tab 的内容、图标与 ID                      |
-| `initialTab`  | `Int`              | 默认选中 tab 的 ID                               |
 | `background`  | `AnyShapeStyle`    | 底部栏背景样式，支持 `.material` 或 `Color`     |
 | `cornerRadius`| `CGFloat`          | 底部栏圆角大小                                   |
 | `shadow`      | `ShadowStyle`      | 控制阴影颜色、模糊半径、偏移量等                |
-
-### 🧑‍💻 作者
-由 @lovewhitemagic 开发
-欢迎 PR 和 Star 🌟
