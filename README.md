@@ -5,12 +5,10 @@
 
 ## ✨ 功能亮点
 
-- 🚀 支持任意数量的 Tab 页面
+- 🚀 支持任意数量的 Tab 页面,建议最大5个
 - 🎨 自定义背景材质（颜色 / Material）
 - 🟦 圆角 / 阴影样式可配置
-- 🌙 适配深色模式
 - ✅ 默认高亮图标（SF Symbol `.fill` 样式）
-- 🔧 支持搭配 `AppThemeKit` 使用，实现主题统一
 
 
 
@@ -33,26 +31,21 @@ struct FloatingTabExample: View {
         }
     }
 }
-
+```
+```
 //外部可自定义参数写法
-struct FloatingTabExample: View {
-    var body: some View {
-        FloatingTabScaffold(
-            background: AnyShapeStyle(Color.white),
-            cornerRadius: 32,
-            shadow: ShadowStyle(
-                color: .black.opacity(0.2),
-                radius: 12,
-                x: 0,
-                y: 4
-            )
-        ) {
-            FloatingTab("house") { HomeView() }
-            FloatingTab("star") { FavoriteView() }
-            FloatingTab("gearshape") { SettingsView() }
-        }
 
-    }
+FloatingTabScaffold(
+    background: AnyShapeStyle(Color.white),
+    cornerRadius: 32,
+    shadow: ShadowStyle(
+        color: .black.opacity(0.2),
+        radius: 12,
+        x: 0,
+        y: 4
+    )
+) {
+    //tabs
 }
 ```
 
