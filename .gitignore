@@ -1,3 +1,6 @@
 .DS_Store
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 .swiftpm/xcode/xcuserdata/huipeng.xcuserdatad/xcschemes/xcschememanagement.plist
+*.xcuserdata
+*.xcuserstate
+.swiftpm/xcode
