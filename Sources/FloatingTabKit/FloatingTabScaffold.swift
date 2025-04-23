@@ -9,20 +9,23 @@ public struct FloatingTabBuilder {
 
 public struct FloatingTabScaffold: View {
     private let tabs: [FloatingTab]
-    private let initialTab: Int
     private let background: AnyShapeStyle
     private let cornerRadius: CGFloat
     private let shadow: ShadowStyle
+    private let initialTab: Int
 
+    @Binding private var selectedTabExternal: Int
     @State private var selectedTab: Int
 
     public init(
+        selectedTab: Binding<Int>,
         initialTab: Int = 0,
         background: AnyShapeStyle = AnyShapeStyle(Color.white),
         cornerRadius: CGFloat = 22,
         shadow: ShadowStyle = .default,
         @FloatingTabBuilder content: () -> [FloatingTab]
     ) {
+        self._selectedTabExternal = selectedTab
         self.tabs = content()
         self.initialTab = initialTab
         self.background = background
@@ -42,7 +45,10 @@ public struct FloatingTabScaffold: View {
                         FloatingTabButton(
                             icon: tab.icon,
                             isSelected: selectedTab == index,
-                            action: { selectedTab = index }
+                            action: {
+                                selectedTab = index
+                                selectedTabExternal = index
+                            }
                         )
                     }
                 }
@@ -60,4 +66,3 @@ public struct FloatingTabScaffold: View {
         }
     }
 }
-
