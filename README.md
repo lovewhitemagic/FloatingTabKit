@@ -9,6 +9,7 @@
 - 🎨 自定义背景材质（颜色 / Material）
 - 🟦 圆角 / 阴影样式可配置
 - ✅ 默认高亮图标（SF Symbol `.fill` 样式）
+- 🔄 支持外部绑定和监听当前选中 Tab（`selectedTab`）
 
 
 
@@ -48,6 +49,24 @@ FloatingTabScaffold(
     //tabs
 }
 ```
+```
+//外部监听选中标签
+@State private var selectedTab = 0
+
+FloatingTabScaffold(
+    selectedTab: $selectedTab,
+    initialTab: 0, // 可选，默认 0
+    background: AnyShapeStyle(.ultraThinMaterial),
+    cornerRadius: 32
+) {
+    FloatingTab("house") { HomeView() }
+    FloatingTab("star") { FavoriteView() }
+    FloatingTab("gearshape") { SettingsView() }
+}
+.onChange(of: selectedTab) {
+    triggerHapticFeedback() // 一些自定义的函数
+}
+```
 
 ## 🧱 参数说明
 
@@ -56,3 +75,4 @@ FloatingTabScaffold(
 | `background`  | `AnyShapeStyle`    | 底部栏背景样式，支持 `.material` 或 `Color`     |
 | `cornerRadius`| `CGFloat`          | 底部栏圆角大小                                   |
 | `shadow`      | `ShadowStyle`      | 控制阴影颜色、模糊半径、偏移量等                |
+| `selectedTab`  | `Binding<Int>`     | 外部绑定当前选中标签页下标，用于监听切换         |
